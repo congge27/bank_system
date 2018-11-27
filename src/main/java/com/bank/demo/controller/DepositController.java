@@ -21,7 +21,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@RestController(value = "/deposit")
+@RestController
+@RequestMapping(value = "/deposit")
 public class DepositController {
 
     @Autowired
