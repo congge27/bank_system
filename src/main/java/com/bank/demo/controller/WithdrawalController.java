@@ -31,7 +31,7 @@ public class WithdrawalController {
      * @return
      */
     @PostMapping(value = "/addwithdrawal")
-    public boolean addDeposit(@RequestBody WithdrawalBean withdrawalBean)
+    public boolean addWithdrawal(@RequestBody WithdrawalBean withdrawalBean)
     {
         java.util.Date datenow=new java.util.Date();
         java.sql.Date  sqldate=new java.sql.Date(datenow.getTime());
@@ -43,18 +43,6 @@ public class WithdrawalController {
         account.setAccountBalance(accountval.subtract(withdrawalBean.withdrawalsvalue));
         Account account1=accountRepository.save(account);
         return true;
-    }
-
-    @GetMapping(value = "/getalldeposit")
-    public List<Withdrawal> getAllDeposit()
-    {
-        return withdrawalRepository.findAll();
-    }
-
-    @GetMapping(value = "/getDepositBySiteId/{siteid}")
-    public List<Withdrawal> getDepositBySiteId(@PathVariable Integer siteid)
-    {
-        return withdrawalRepository.findBySiteId(siteid);
     }
 
 
