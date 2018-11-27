@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
+@RequestMapping(value = "/withdrawal")
 public class WithdrawalController {
     @Autowired
     private WithdrawalRepository withdrawalRepository;
@@ -39,10 +40,45 @@ public class WithdrawalController {
         if(account.getAccountBalance().compareTo(withdrawalBean.withdrawalsvalue)<0){
             return false;
         }
-        BigDecimal accountval=account.getAccountBalance();
-        account.setAccountBalance(accountval.subtract(withdrawalBean.withdrawalsvalue));
-        Account account1=accountRepository.save(account);
+        Withdrawal withdrawal=new Withdrawal();
+        withdrawal.setAccountBalance(account.getAccountBalance().subtract(withdrawalBean.withdrawalsvalue));
+        withdrawal.setAccountid(withdrawalBean.accountId);
+        withdrawal.setSiteId(withdrawalBean.siteId);
+        withdrawal.setWithdrawalsId(DataTest.makeAccountid(withdrawalBean.siteId));
+        withdrawal.setWithdrawalsvalue(withdrawalBean.withdrawalsvalue);
+        withdrawal.setStaffId(withdrawalBean.staffId);
+        datenow=new java.util.Date();
+        sqldate=new java.sql.Date(datenow.getTime());
+        withdrawal.setWithDate(sqldate);
+        withdrawalRepository.save(withdrawal);
+
+        account.setAccountBalance(withdrawal.getAccountBalance());
+        accountRepository.save(account);
+
+        datenow=new java.util.Date();
+        sqldate=new java.sql.Date(datenow.getTime());
+        Summary summary=new Summary();
+        summary.setDate(sqldate);
+        summary.setType(2);
+        summary.setAccountIdFrom(account.getAcconutId());
+        summary.setAccountIdTo(account.getAcconutId());
+        summary.setSiteId(withdrawalBean.siteId);
+        summary.setValue(withdrawalBean.withdrawalsvalue);
+        summary.setSummaryId(DataTest.makeSummaryid());
+        summaryRepository.save(summary);
         return true;
+    }
+
+    @GetMapping(value = "/getallwithdrawal")
+    public List<Withdrawal> getAllWithdrawal()
+    {
+        return withdrawalRepository.findAll();
+    }
+
+    @GetMapping(value = "/getWithdrawalBySiteId/{siteid}")
+    public List<Withdrawal> getDepositBySiteId(@PathVariable Integer siteid)
+    {
+        return withdrawalRepository.findBySiteId(siteid);
     }
 
 
