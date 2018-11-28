@@ -22,7 +22,6 @@ public class Account {
     @Column(updatable = false)
     private Integer siteId;
 
-    @Length(min=5,max=20)
     private String password;
 
     private BigDecimal accountBalance;

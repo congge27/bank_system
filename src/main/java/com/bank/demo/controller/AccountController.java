@@ -31,7 +31,9 @@ public class AccountController {
     private AccountsumRepository accountsumRepository;
 
     @PostMapping(value = "/addAccount")
-    public Account addAccount(@RequestBody AccountBean accountBean) {
+    public boolean addAccount(@RequestBody AccountBean accountBean) {
+        if(accountBean.password==null||accountBean.siteId==null)
+            return false;
         User user=userRepository.findByUId(accountBean.UserId);
         Account account=new Account();
         account.setAcconutId(DataTest.makeAccountid(accountBean.siteId));
@@ -48,7 +50,7 @@ public class AccountController {
         accountsum.setAccountPsw(account.getPassword());
         accountsum.setSiteId(account.getSiteId());
         accountsumRepository.save(accountsum);
-        return account;
+        return true;
     }
 
     @PostMapping(value = "/islogin")
@@ -61,6 +63,4 @@ public class AccountController {
         }
         else return false;
     }
-
-
 }
