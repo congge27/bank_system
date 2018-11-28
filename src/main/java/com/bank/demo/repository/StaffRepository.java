@@ -11,5 +11,4 @@ public interface StaffRepository extends JpaRepository<Staff,String> {
     List<Staff> findByStaffPhone(String phone);
     List<Staff> findByStaffSite(Integer siteId);
     List<Staff> findAll();
-
 }

@@ -26,10 +26,10 @@ public class StaffController {
 
     @PostMapping(value = "/addStaff")
     public boolean addStaff(@RequestBody StaffBean staffBean) {
-        if(staffBean.sId.length()>2||staffBean.sName.length()>8||staffBean.sPhone.length()>11)
+        if(staffBean.sName.length()>8||staffBean.sPhone.length()>11)
             return false;
         Staff staff=new Staff();
-        staff.setStaffId(staffBean.sId);
+        staff.setStaffId(DataTest.makeStaffid(staffBean.sSite));
         staff.setStaffName(staffBean.sName);
         staff.setStaffPhone(staffBean.sPhone);
         staff.setStaffSite(staffBean.sSite);
@@ -39,7 +39,7 @@ public class StaffController {
 
     @PostMapping(value = "/changeStaff")
     public boolean changeStaff(@RequestBody StaffBean staffBean) {
-        if(staffBean.sId.length()>2||staffBean.sName.length()>8||staffBean.sPhone.length()>11)
+        if(staffBean.sName.length()>8||staffBean.sPhone.length()>11)
             return false;
         Staff staff=staffRepository.findByStaffId(staffBean.sId);
         staff.setStaffName(staffBean.sName);
