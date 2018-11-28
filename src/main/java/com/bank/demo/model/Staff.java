@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Table(name = "Staffs")
 public class Staff {
     @Id
-    @Column(length = 2)
     private String staffId;
 
     @Column(length = 8)
