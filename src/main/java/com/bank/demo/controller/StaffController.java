@@ -26,6 +26,8 @@ public class StaffController {
 
     @PostMapping(value = "/addStaff")
     public boolean addStaff(@RequestBody StaffBean staffBean) {
+        if(staffBean.sId==null)
+            return false;
         if(staffBean.sName.length()>8||staffBean.sPhone.length()>11)
             return false;
         Staff staff=new Staff();
@@ -39,6 +41,8 @@ public class StaffController {
 
     @PostMapping(value = "/changeStaff")
     public boolean changeStaff(@RequestBody StaffBean staffBean) {
+        if(staffBean==null||staffBean.sId==null)
+            return false;
         if(staffBean.sName.length()>8||staffBean.sPhone.length()>11)
             return false;
         Staff staff=staffRepository.findByStaffId(staffBean.sId);

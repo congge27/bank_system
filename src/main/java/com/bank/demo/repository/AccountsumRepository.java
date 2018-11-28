@@ -9,4 +9,5 @@ public interface AccountsumRepository extends JpaRepository<Accountsum,String> {
     List<Accountsum> findBySiteId(Integer siteid);
     Accountsum findByAccountId(String accountId);
     List<Accountsum> findByUId(String uId);
+
 }

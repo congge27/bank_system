@@ -20,7 +20,8 @@ public class AccountSumController {
     */
     @GetMapping(value = "/getall")
     public List<Accountsum> getAll(){
-        return accountsumRepository.findAll();
+        List<Accountsum> list=accountsumRepository.findAll();
+        return list;
     }
 
     @GetMapping(value = "/getbyaccountid/{id}")

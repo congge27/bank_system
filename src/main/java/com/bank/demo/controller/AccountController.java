@@ -32,7 +32,7 @@ public class AccountController {
 
     @PostMapping(value = "/addAccount")
     public boolean addAccount(@RequestBody AccountBean accountBean) {
-        if(accountBean.password==null||accountBean.siteId==null)
+        if(accountBean==null)
             return false;
         User user=userRepository.findByUId(accountBean.UserId);
         Account account=new Account();
@@ -55,6 +55,8 @@ public class AccountController {
 
     @PostMapping(value = "/islogin")
     public boolean isLogin(@RequestBody LoginBean loginBean){
+        if(loginBean.AccountId==null||loginBean.password==null)
+            return false;
         Account account=accountRepository.findByAcconutId(loginBean.AccountId);
         String pwd=DataTest.getMD5(loginBean.password);
         if(pwd.equals(account.getPassword()))

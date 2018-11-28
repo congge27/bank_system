@@ -41,8 +41,6 @@ public class DataTest {
     @GetMapping(value = "/datainit")
     public int DataInit()
     {
-
-
         return 0;
     }
 

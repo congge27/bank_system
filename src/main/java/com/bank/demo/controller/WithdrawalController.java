@@ -34,6 +34,8 @@ public class WithdrawalController {
     @PostMapping(value = "/addwithdrawal")
     public boolean addWithdrawal(@RequestBody WithdrawalBean withdrawalBean)
     {
+        if(withdrawalBean==null)
+            return false;
         java.util.Date datenow=new java.util.Date();
         java.sql.Date  sqldate=new java.sql.Date(datenow.getTime());
         Account account= accountRepository.findByAcconutId(withdrawalBean.accountId);

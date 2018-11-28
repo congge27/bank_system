@@ -30,6 +30,8 @@ public class TransferController {
     @PostMapping(value = "/addtransfer")
     public boolean addTransfer(@RequestBody TransferBean transferBean)
     {
+        if(transferBean==null)
+            return false;
         Account accountFrom=accountRepository.findByAcconutId(transferBean.accountIdFrom);
         Account accountTo=accountRepository.findByAcconutId(transferBean.accountIdTo);
         if(accountFrom.getAccountBalance().compareTo(transferBean.transferValue)<0){

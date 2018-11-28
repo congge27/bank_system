@@ -56,8 +56,10 @@ public class DepositController {
      * @return
      */
     @PostMapping(value = "/adddeposit")
-    public Deposit addDeposit(@RequestBody DepositBean depositBean)
+    public boolean addDeposit(@RequestBody DepositBean depositBean)
     {
+        if(depositBean==null)
+            return false;
         java.util.Date datenow=new java.util.Date();
         java.sql.Date  sqldate=new java.sql.Date(datenow.getTime());
 
@@ -87,7 +89,7 @@ public class DepositController {
         summaryRepository.save(summary);
 
 
-        return deposit;
+        return true;
     }
 
     @GetMapping(value = "/getalldeposit")
