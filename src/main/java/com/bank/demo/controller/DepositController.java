@@ -76,8 +76,6 @@ public class DepositController {
         deposit.setDepositsDateTime(sqldate);
         depositRepository.save(deposit);
 
-        datenow=new java.util.Date();
-        sqldate=new java.sql.Date(datenow.getTime());
         Summary summary=new Summary();
         summary.setType(1);
         summary.setAccountIdFrom(account.getAcconutId());

@@ -8,5 +8,7 @@ import java.util.List;
 public interface TransferRepository extends JpaRepository<Transfer, Integer> {
     List<Transfer> findAll();
     Transfer findByTransferId(Integer transferId);
+    List<Transfer> findBySiteId(Integer siteId);
+
 
 }
