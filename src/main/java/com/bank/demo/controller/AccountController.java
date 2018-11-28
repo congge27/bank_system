@@ -34,11 +34,11 @@ public class AccountController {
     public boolean addAccount(@RequestBody AccountBean accountBean) {
         if(accountBean==null)
             return false;
-        User user=userRepository.findByUId(accountBean.UserId);
+        User user=userRepository.findByUId(accountBean.userId);
         Account account=new Account();
         account.setAcconutId(DataTest.makeAccountid(accountBean.siteId));
         account.setAccountBalance(BigDecimal.valueOf(0));
-        account.setUserId(accountBean.UserId);
+        account.setUserId(accountBean.userId);
         account.setSiteId(accountBean.siteId);
         account.setPassword(DataTest.getMD5(accountBean.password));
         accountRepository.save(account);
@@ -46,7 +46,7 @@ public class AccountController {
         Accountsum accountsum= new Accountsum();
         accountsum.setAccountBalance(BigDecimal.valueOf(0));
         accountsum.setAccountId(account.getAcconutId());
-        accountsum.setUId(accountBean.UserId);
+        accountsum.setUId(accountBean.userId);
         accountsum.setAccountPsw(account.getPassword());
         accountsum.setSiteId(account.getSiteId());
         accountsumRepository.save(accountsum);
@@ -55,9 +55,9 @@ public class AccountController {
 
     @PostMapping(value = "/islogin")
     public boolean isLogin(@RequestBody LoginBean loginBean){
-        if(loginBean.AccountId==null||loginBean.password==null)
+        if(loginBean.accountId==null||loginBean.password==null)
             return false;
-        Account account=accountRepository.findByAcconutId(loginBean.AccountId);
+        Account account=accountRepository.findByAcconutId(loginBean.accountId);
         String pwd=DataTest.getMD5(loginBean.password);
         if(pwd.equals(account.getPassword()))
         {

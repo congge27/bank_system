@@ -9,6 +9,8 @@ import java.math.BigDecimal;
 @Entity
 @Table(name = "AccountSums")
 public class Accountsum {
+    public Accountsum() {
+    }
     @Id
     @Column(length = 19)
     private String accountId;
@@ -62,4 +64,6 @@ public class Accountsum {
     public void setAccountBalance(BigDecimal accountBalance) {
         this.accountBalance = accountBalance;
     }
+
+
 }

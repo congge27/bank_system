@@ -11,7 +11,7 @@
  Target Server Version : 50642
  File Encoding         : 65001
 
- Date: 26/11/2018 17:45:56
+ Date: 28/11/2018 15:27:53
 */
 
 SET NAMES utf8mb4;
@@ -37,7 +37,7 @@ DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts`  (
   `acconut_id` varchar(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `account_balance` decimal(19, 2) NULL DEFAULT NULL,
-  `password` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `password` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `site_id` int(11) NULL DEFAULT NULL,
   `user_id` varchar(18) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`acconut_id`) USING BTREE
@@ -83,7 +83,7 @@ CREATE TABLE `sites`  (
 DROP TABLE IF EXISTS `staffs`;
 CREATE TABLE `staffs`  (
   `staff_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `staff_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `staff_name` varchar(8) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `staff_phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `staff_site` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`staff_id`) USING BTREE

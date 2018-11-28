@@ -5,7 +5,7 @@ import org.hibernate.validator.constraints.Length;
 import java.math.BigDecimal;
 
 public class AccountBean {
-    public String UserId;
+    public String userId;
 
     @Length(min=5,max=20)
     public String password;

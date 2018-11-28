@@ -2,6 +2,7 @@ package com.bank.demo.controller;
 
 import com.bank.demo.mainModel.Accountsum;
 import com.bank.demo.repository.AccountsumRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,12 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/accountsum")
 public class AccountSumController {
+    @Autowired
     private AccountsumRepository accountsumRepository;
-    /*
-    List<Accountsum> findBySiteId(Integer siteid);
-    Accountsum findByAccountId(String accountId);
-    List<Accountsum> findByUId(String uId);
-    */
+
     @GetMapping(value = "/getall")
     public List<Accountsum> getAll(){
         List<Accountsum> list=accountsumRepository.findAll();
@@ -38,5 +36,4 @@ public class AccountSumController {
     public List<Accountsum> getByUserId(@PathVariable String userid){
         return accountsumRepository.findByUId(userid);
     }
-
 }
