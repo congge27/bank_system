@@ -34,6 +34,8 @@ public class TransferController {
             return false;
         Account accountFrom=accountRepository.findByAcconutId(transferBean.accountIdFrom);
         Account accountTo=accountRepository.findByAcconutId(transferBean.accountIdTo);
+        if(accountFrom==null||accountTo==null)
+            return false;
         if(accountFrom.getAccountBalance().compareTo(transferBean.transferValue)<0){
             return false;
         }
