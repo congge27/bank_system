@@ -6,12 +6,13 @@ import javax.persistence.*;
 @Table(name = "Staffs")
 public class Staff {
     @Id
+    @Column(length = 2)
     private String staffId;
 
-    @Column(length = 50)
+    @Column(length = 8)
     private String staffName;
 
-    @Column(updatable = false)
+    @Column(updatable = false,length = 2)
     private Integer staffSite;
 
     @Column(length = 11)
