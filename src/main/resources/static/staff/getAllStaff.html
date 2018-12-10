@@ -52,10 +52,6 @@
                                     </thead>
                                     <tbody id="ul1">
                                     <tr class="gradeU">
-                                        <td>Other browsers</td>
-                                        <td>All others</td>
-                                        <td>-</td>
-                                        <td class="center">-</td>
 
                                     </tr>
                                     </tbody>
@@ -92,7 +88,7 @@
             url="getAllStaff"
         }
         else{
-            url="getbysiteid/"+siteid;
+            url="getStaffBySiteId/"+siteid;
         }
         $.ajax({
             url:"/staff/"+url,    //请求的url地址

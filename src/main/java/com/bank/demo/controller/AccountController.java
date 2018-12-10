@@ -34,7 +34,7 @@ public class AccountController {
         System.out.println(accountBean.userId);
         System.out.println("1534561");
 
-        if(accountBean==null)
+        if(accountBean==null||accountBean.userId.length()!=18||accountBean.password.length()>32||accountBean.password.length()<5)
             return false;
         User user=userRepository.findByUId(accountBean.userId);
         Account account=new Account();
