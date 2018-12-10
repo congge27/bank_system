@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <!-- Bootstrap Styles-->
+    <link href="../test/assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="../test/assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="../test/assets/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+    <!-- js-->
+
+
+</head>
+<body>
+<div id="nav"></div>
+
+
+<!-- /. NAV SIDE  -->
+    <div id="page-wrapper" >
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="page-header">
+                        添加职员
+                    </h1>
+                </div>
+            </div>
+            <!-- /. ROW  -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6" align="center">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <input type="text" id="sId" class="form-control" placeholder="职员ID"><br>
+                                            <input type="text" id="sName" class="form-control" placeholder="职员姓名"><br>
+                                            <input type="text" id="sPhone" class="form-control" placeholder="电话号码"><br>
+                                            <input type="text" id="sSite" class="form-control" placeholder="所属站点"><br>
+                                            <a href="#" id="submit" class="btn btn-success btn-sm">提交</a>
+
+                                        </div>
+
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <div class="row">
+                <button id="getuser">获取所有账户</button>
+                <ul id="ul1">
+
+                </ul>
+            </div>
+            <footer></footer>
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<script src="../test/assets/js/jquery-1.10.2.js"></script>
+<!-- Bootstrap Js -->
+<script src="../test/assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#getuser").on('click',function () {
+            $.ajax({
+                url:"/accountsum/getall",    //请求的url地址
+                dataType:"json",   //返回格式为json
+                async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                //data:{"id":"value"},    //参数值
+                type:"GET",   //请求方式
+                beforeSend:function(){
+                    //请求前的处理
+                },
+                success:function(data){
+                    $("#ul1").empty();
+                    for(var i=0;i<data.length;i++)
+                    {
+                        $("#ul1").append("<li>"+data[i].accountId+"</li>");
+                    }
+                    //请求成功时处理
+                },
+                complete:function(){
+                    //请求完成的处理
+                },
+                error:function(){
+                    //请求出错处理
+                }
+            });
+        });
+
+        $("#submit").on('click',function () {
+            var sId=$("#sId").val();
+            var sName=$("#sName").val();
+            var sPhone=$("#sPhone").val();
+            var sSite=$("#sSite").val();
+            var data={
+                "sId":sId,
+                "sName":sName,
+                "sPhone":sPhone,
+                "sSite":sSite
+            };
+            $.ajax({
+                url:"/staff/addStaff",    //请求的url地址
+                dataType:"json",   //返回格式为json
+                async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                contentType:"application/json",
+                data:JSON.stringify(data),    //参数值
+                type:"POST",   //请求方式
+                beforeSend:function(){
+                    //请求前的处理
+                },
+                success:function(data){
+                    if(data){
+                        window.alert("添加成功");
+                    }else {
+                        window.alert("添加失败");
+                    }
+
+
+                    //请求成功时处理
+                },
+                complete:function(){
+                    //请求完成的处理
+                },
+                error:function(){
+                    //请求出错处理
+                }
+            });
+        });
+    });
+
+</script>
+<script>$("#nav").load("/nav.html")</script>
+<!-- Metis Menu Js -->
+<script src="../test/assets/js/jquery.metisMenu.js"></script>
+<!-- Custom Js -->
+<script src="../test/assets/js/custom-scripts.js"></script>
+
+
+
+</body>
+</html>
