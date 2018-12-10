@@ -44,7 +44,6 @@
                                         <div class="form-group">
                                             <input type="text" id="accountId" class="form-control" placeholder="账号"><br>
                                             <input type="text" id="withdrawalsvalue" class="form-control" placeholder="金额"><br>
-                                            <input type="text" id="staffId" class="form-control" placeholder="职员号"><br>
                                             <a href="#" id="submit" class="btn btn-success btn-sm">提交</a>
 
                                         </div>
@@ -83,6 +82,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var siteid=localStorage.getItem("siteid");
+        var staffId=localStorage.getItem("staffid");
         $("#getuser").on('click',function () {
             $.ajax({
                 url:"/accountsum/getall",    //请求的url地址
@@ -113,7 +113,6 @@
         $("#submit").on('click',function () {
             var accountId=$("#accountId").val();
             var withdrawalsvalue=$("#withdrawalsvalue").val();
-            var staffId=$("#staffId").val();
             var data={
                 "accountId":accountId,
                 "withdrawalsvalue":withdrawalsvalue,

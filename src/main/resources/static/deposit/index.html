@@ -44,7 +44,6 @@
                                         <div class="form-group">
                                             <input type="text" id="accountId" class="form-control" placeholder="账号"><br>
                                             <input type="text" id="depositsValue" class="form-control" placeholder="金额"><br>
-                                            <input type="text" id="staffId" class="form-control" placeholder="职员号"><br>
                                             <a href="#" id="submit" class="btn btn-success btn-sm">提交</a>
 
                                         </div>
@@ -114,13 +113,12 @@
             var accountId=$("#accountId").val();
             var depositsValue=$("#depositsValue").val();
             var siteid=localStorage.getItem("siteid");
-
-            var staffId=$("#staffId").val();
+            var staffid=localStorage.getItem("staffid");
             var data={
                 "accountId":accountId,
                 "depositsValue":depositsValue,
                 "siteId":siteid,
-                "staffId":staffId
+                "staffId":staffid
             };
             $.ajax({
                 url:"/deposit/adddeposit",    //请求的url地址

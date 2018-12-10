@@ -45,7 +45,6 @@
                                             <input type="text" id="accountIdFrom" class="form-control" placeholder="转出方账号"><br>
                                             <input type="text" id="accountIdTo" class="form-control" placeholder="转入方账号"><br>
                                             <input type="text" id="transferValue" class="form-control" placeholder="转账金额"><br>
-                                            <input type="text" id="staffId" class="form-control" placeholder="职员号"><br>
                                             <a href="#" id="submit" class="btn btn-success btn-sm">提交</a>
 
                                         </div>
@@ -84,6 +83,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var siteid=localStorage.getItem("siteid");
+        var staffId=localStorage.getItem("staffid");
         $("#getuser").on('click',function () {
             $.ajax({
                 url:"/accountsum/getall",    //请求的url地址
@@ -115,7 +115,6 @@
             var accountIdFrom=$("#accountIdFrom").val();
             var accountIdTo=$("#accountIdTo").val();
             var transferValue=$("#transferValue").val();
-            var staffId=$("#staffId").val();
             var data={
                 "accountIdFrom":accountIdFrom,
                 "accountIdTo":accountIdTo,

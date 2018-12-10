@@ -66,7 +66,7 @@ public class WithdrawalController {
         sqldate=new java.sql.Date(datenow.getTime());
         Summary summary=new Summary();
         summary.setDate(sqldate);
-        summary.setType(2);
+        summary.setType(DepositController.actionType.取款);
         summary.setAccountIdFrom(account.getAcconutId());
         summary.setAccountIdTo(account.getAcconutId());
         summary.setSiteId(withdrawalBean.siteId);

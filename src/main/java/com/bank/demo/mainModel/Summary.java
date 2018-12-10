@@ -1,5 +1,7 @@
 package com.bank.demo.mainModel;
 
+import com.bank.demo.controller.DepositController;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,7 +19,7 @@ public class Summary {
 
     private BigDecimal value;
 
-    private Integer type;
+    private DepositController.actionType type;
 
     private Date date;
 
@@ -44,10 +46,6 @@ public class Summary {
         this.siteId = siteId;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
     public BigDecimal getValue() {
         return value;
     }
@@ -56,11 +54,11 @@ public class Summary {
         this.value = value;
     }
 
-    public int getType() {
+    public DepositController.actionType getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(DepositController.actionType type) {
         this.type = type;
     }
 

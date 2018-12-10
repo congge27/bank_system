@@ -26,7 +26,7 @@ public class StaffController {
 
     @PostMapping(value = "/addStaff")
     public boolean addStaff(@RequestBody StaffBean staffBean) {
-        if(staffBean.sId==null)
+        if(staffBean==null||staffBean.sName=="")
             return false;
         if(staffBean.sName.length()>8||staffBean.sPhone.length()>11)
             return false;
@@ -35,19 +35,6 @@ public class StaffController {
         staff.setStaffName(staffBean.sName);
         staff.setStaffPhone(staffBean.sPhone);
         staff.setStaffSite(staffBean.sSite);
-        staffRepository.save(staff);
-        return true;
-    }
-
-    @PostMapping(value = "/changeStaff")
-    public boolean changeStaff(@RequestBody StaffBean staffBean) {
-        if(staffBean==null||staffBean.sId==null)
-            return false;
-        if(staffBean.sName.length()>8||staffBean.sPhone.length()>11)
-            return false;
-        Staff staff=staffRepository.findByStaffId(staffBean.sId);
-        staff.setStaffName(staffBean.sName);
-        staff.setStaffPhone(staffBean.sPhone);
         staffRepository.save(staff);
         return true;
     }

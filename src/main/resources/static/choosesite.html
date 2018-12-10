@@ -17,6 +17,9 @@
 
         $(document).ready(function () {
             localStorage.setItem("siteid",10);
+            localStorage.setItem("staffid",0);
+
+
             $("#one").on('click',function () {
                 console.log("1");
                 localStorage.setItem("siteid",0);
@@ -27,13 +30,53 @@
             $("#three").on('click',function () {
                 localStorage.setItem("siteid",2);
             });
+
             $("#commit").on('click',function () {
                 if(localStorage.getItem("siteid")>3)
                     alert("选择总行或分行");
                 else
-                    window.location.href = "/index.html";
-
+                {
+                    $.ajax({
+                        url:"/staff/getAllStaff",    //请求的url地址
+                        dataType:"json",   //返回格式为json
+                        async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                        contentType:"application/json",
+                        type:"GET",   //请求方式
+                        //data:JSON.stringify(data),    //参数值
+                        beforeSend:function(){
+                            //请求前的处理
+                        },
+                        success:function(data){
+                            if(data!=null)
+                            {
+                                DisplayListItems(data);
+                                $("p.tra").on('click',function () {
+                                    var s=$(this).html();
+                                    console.log(s);
+                                    localStorage.setItem("staffid",s);
+                                    window.location.href="/index.html";
+                                })
+                            }
+                            else
+                                alert("查询失败");
+                            //请求成功时处理
+                        }
+                    });
+                    function DisplayListItems(list) {
+                        $.each(list, function(index, element) {
+                            var itemHTML = [
+                                "<tr class=\"odd gradeX\">",
+                                "<td class='center'>","<p class='tra' id='staffid"+index+"'>",element.staffId,"</p>","</td>",
+                                "<td class=\"center\">",element.staffName,"</td>",
+                                "</tr>"].join('\n');
+                            $("#ul1").append(itemHTML);
+                        });
+                    };
+                }
             });
+
+
+
         });
     </script>
 </head>
@@ -102,6 +145,35 @@
                             <a href="#" class="btn btn-danger btn-lg" id="two">分行一</a>
                             <a href="#" class="btn btn-success btn-lg" id="three">分行二</a>
                             <a href="#" class="btn btn-info btn-lg" id="commit">进入</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            交易记录
+                        </div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>工号</th>
+                                        <th>姓名</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="ul1">
+                                    <tr class="gradeU">
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
                     </div>
                 </div>

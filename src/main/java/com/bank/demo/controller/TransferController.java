@@ -88,7 +88,7 @@ public class TransferController {
         summary.setSiteId(transferBean.siteId);
         summary.setAccountIdTo(transferBean.accountIdTo);
         summary.setAccountIdFrom(transferBean.accountIdFrom);
-        summary.setType(3);
+        summary.setType(DepositController.actionType.转账);
         summaryRepository.save(summary);
 
         Accountsum accountsum1= accountsumRepository.findByAccountId(accountFrom.getAcconutId());

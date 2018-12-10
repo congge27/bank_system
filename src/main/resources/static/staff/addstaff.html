@@ -44,10 +44,8 @@
                                 <div class="col-lg-6" align="center">
                                     <form role="form">
                                         <div class="form-group">
-                                            <input type="text" id="sId" class="form-control" placeholder="职员ID"><br>
                                             <input type="text" id="sName" class="form-control" placeholder="职员姓名"><br>
                                             <input type="text" id="sPhone" class="form-control" placeholder="电话号码"><br>
-                                            <input type="text" id="sSite" class="form-control" placeholder="所属站点"><br>
                                             <a href="#" id="submit" class="btn btn-success btn-sm">提交</a>
 
                                         </div>
@@ -85,6 +83,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        var siteid=localStorage.getItem("siteid");
         $("#getuser").on('click',function () {
             $.ajax({
                 url:"/accountsum/getall",    //请求的url地址
@@ -113,12 +112,10 @@
         });
 
         $("#submit").on('click',function () {
-            var sId=$("#sId").val();
             var sName=$("#sName").val();
             var sPhone=$("#sPhone").val();
-            var sSite=$("#sSite").val();
+            var sSite=siteid;
             var data={
-                "sId":sId,
                 "sName":sName,
                 "sPhone":sPhone,
                 "sSite":sSite

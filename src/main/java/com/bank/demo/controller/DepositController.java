@@ -39,6 +39,9 @@ public class DepositController {
     @Autowired
     private AccountsumRepository accountsumRepository;
 
+    public enum actionType{
+        存款,取款,转账
+    }
     @GetMapping(value = "/depositlist")
     public List<Deposit> depositList() throws ParseException {
         for(int i=0;i<=10;i++)
@@ -84,7 +87,7 @@ public class DepositController {
         depositRepository.save(deposit);
 
         Summary summary=new Summary();
-        summary.setType(1);
+        summary.setType(actionType.存款);
         summary.setAccountIdFrom(account.getAcconutId());
         summary.setAccountIdTo(account.getAcconutId());
         summary.setSiteId(depositBean.siteId);
