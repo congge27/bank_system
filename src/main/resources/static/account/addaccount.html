@@ -8,57 +8,52 @@
     <link href="../test/assets/css/bootstrap.css" rel="stylesheet" />
     <!-- FontAwesome Styles-->
     <link href="../test/assets/css/font-awesome.css" rel="stylesheet" />
-    <!-- Morris Chart Styles-->
-
     <!-- Custom Styles-->
     <link href="../test/assets/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-    <!-- TABLE STYLES-->
-    <link href="../test/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
     <script src="../jquery-3.3.1.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
             console.log("1321653");
             var siteid=localStorage.getItem("siteid");
-            $.ajax({
-                url:"/account/getaccount/"+siteid,    //请求的url地址
-                dataType:"json",   //返回格式为json
-                async:true,//请求是否异步，默认为异步，这也是ajax重要特性
-                contentType:"application/json",
-                type:"GET",   //请求方式
-                //data:JSON.stringify(data),    //参数值
-                beforeSend:function(){
-                    //请求前的处理
-                },
-                success:function(data){
-                    if(data!=null)
-                    {
-                        DisplayListItems(data);
+            $("#commit").on('click',function () {
+                var userId=$("#userId").val();
+                var password=$("#password").val();
+
+                var data={
+                    "userId":userId,
+                    "password":password,
+                    "siteId":siteid
+                };
+                $.ajax({
+                    url:"/account/addaccount",    //请求的url地址
+                    dataType:"json",   //返回格式为json
+                    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                    contentType:"application/json",
+                    type:"POST",   //请求方式
+                    data:JSON.stringify(data),    //参数值
+                    beforeSend:function(){
+                        //请求前的处理
+                    },
+                    success:function(data){
+                        if(data==true)
+                        {
+                            alert("成功创建账户");
+                        }
+                        else
+                            alert("创建失败，检查输入信息");
+                        //请求成功时处理
+                    },
+                    complete:function(){
+                        //请求完成的处理
+                    },
+                    error:function(){
+                        //请求出错处理
                     }
-                    else
-                        alert("查询失败");
-                    //请求成功时处理
-                },
-                complete:function(){
-                    //请求完成的处理
-                },
-                error:function(){
-                    //请求出错处理
-                }
-            });
-            function DisplayListItems(list) {
-                $.each(list, function(index, element) {
-                    var itemHTML = [
-                        "<tr class=\"odd gradeX\">",
-                        "<td>",element.acconutId,"</td>",
-                        "<td class='center'>",element.userId,"</td>",
-                        "<td class=\"center\">",element.accountBalance,"</td>",
-                        "</tr>"].join('\n');
-                    $("#list1").append(itemHTML);
                 });
-            };
+            });
         });
 
     </script>
@@ -68,12 +63,12 @@
     <nav class="navbar navbar-default top-navbar" role="navigation">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                <span class="sr-only">Toggle navigation</span>
+                <span class="sr-only"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html"><i class="fa fa-gear"></i> <strong>HYBRID</strong></a>
+            <a class="navbar-brand" href="index.html"><i class="fa fa-gear"></i> <strong>银行管理系统</strong></a>
         </div>
 
 
@@ -135,62 +130,58 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="page-header">
-                        Tables Page <small></small>
+                        创建用户</small>
                     </h1>
                 </div>
             </div>
             <!-- /. ROW  -->
-
             <div class="row">
-                <div class="col-md-12">
-                    <!-- Advanced Tables -->
+                <div class="col-lg-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            交易记录
+
                         </div>
                         <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>账户</th>
-                                        <th>用户</th>
-                                        <th>余额</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="list1">
+                            <div class="row">
+                                <div class="col-lg-6" align="center">
+                                    <form role="form">
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" placeholder="身份证号" id="userId"><br>
+                                            <input type="password" class="form-control" placeholder="密码" id="password"><br>
+                                            <a href="#" class="btn btn-success btn-sm" id="commit">提交</a>
+                                        </div>
 
-                                    </tbody>
-                                </table>
+
+                                    </form>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
                             </div>
-
+                            <!-- /.row (nested) -->
                         </div>
+                        <!-- /.panel-body -->
                     </div>
-                    <!--End Advanced Tables -->
+                    <!-- /.panel -->
                 </div>
+                <!-- /.col-lg-12 -->
             </div>
-            <!-- /. ROW  -->
-            <!-- /. ROW  -->
+            <footer></footer>
         </div>
-        <footer></footer>
+        <!-- /. PAGE INNER  -->
     </div>
-    <!-- /. PAGE INNER  -->
+    <!-- /. PAGE WRAPPER  -->
 </div>
-<!-- /. PAGE WRAPPER  -->
-
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
 <!-- Bootstrap Js -->
 <script src="../test/assets/js/bootstrap.min.js"></script>
 <!-- Metis Menu Js -->
 <script src="../test/assets/js/jquery.metisMenu.js"></script>
-<!-- DATA TABLE SCRIPTS -->
-<script src="../test/assets/js/dataTables/jquery.dataTables.js"></script>
-<script src="../test/assets/js/dataTables/dataTables.bootstrap.js"></script>
-<script>
-    $(document).ready(function () {
-        $('#dataTables-example').dataTable();
-    });
-</script>
 <!-- Custom Js -->
 <script src="../test/assets/js/custom-scripts.js"></script>
+
+
+
+
 </body>
 </html>

@@ -17,6 +17,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             console.log("1321653");
+
             $("#commit").on('click',function () {
                 var uId=$("#uid").val();
                 var uName=$("#uname").val();
@@ -54,42 +55,6 @@
                     }
                 });
             });
-
-            $("#button2").on('click',function () {
-                var accountId=$("#accountId").val();
-                var depositsValue=$("#depositsValue").val();
-                var siteId=$("#siteId").val();
-                var staffId=$("#staffId").val();
-                var x=2018444112869165751;
-                var data={
-                    "accountId":accountId,
-                    "depositsValue":depositsValue,
-                    "siteId":siteId,
-                    "staffId":staffId
-                };
-                $.ajax({
-                    url:"/deposit/adddeposit",    //请求的url地址
-                    dataType:"json",   //返回格式为json
-                    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
-                    contentType:"application/json",
-                    data:JSON.stringify(data),    //参数值
-                    type:"POST",   //请求方式
-                    beforeSend:function(){
-                        //请求前的处理
-                    },
-                    success:function(data){
-                        window.location.href = "http://www.baidu.com";
-
-                        //请求成功时处理
-                    },
-                    complete:function(){
-                        //请求完成的处理
-                    },
-                    error:function(){
-                        //请求出错处理
-                    }
-                });
-            });
         });
 
     </script>
@@ -115,7 +80,7 @@
             <ul class="nav" id="main-menu">
 
                 <li>
-                    <a class="active-menu" href="../index.html"><i class="fa fa-dashboard"></i>站点信息</a>
+                    <a class="active-menu" href="/index.html"><i class="fa fa-dashboard"></i>主页</a>
                 </li>
                 <li>
                     <a href="../deposit/index.html"><i class="fa fa-desktop"></i>存款</a>
@@ -124,49 +89,36 @@
                     <a href="../withdrawal/index.html"><i class="fa fa-bar-chart-o"></i>取款</a>
                 </li>
                 <li>
-                    <a href="../withdrawal/index.html"><i class="fa fa-bar-chart-o"></i>交易查询</a>
+                    <a href="../query/index.html"><i class="fa fa-bar-chart-o"></i>交易查询</a>
                 </li>
                 <li>
                     <a href="../transfer/index.html"><i class="fa fa-qrcode"></i>转账</a>
-                </li>
-
-                <li>
-                    <a href="table.html"><i class="fa fa-table"></i>更改密码</a>
                 </li>
                 <li>
                     <a href="form.html"><i class="fa fa-edit"></i>职员信息</a>
                 </li>
 
-
                 <li>
-                    <a href="#"><i class="fa fa-sitemap"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-sitemap"></i>用户管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">Second Level Link</a>
+                            <a href="../user/index.html">所有用户</a>
                         </li>
                         <li>
-                            <a href="#">Second Level Link</a>
-                        </li>
-                        <li>
-                            <a href="#">Second Level Link<span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li>
-                                    <a href="#">Third Level Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level Link</a>
-                                </li>
-
-                            </ul>
-
+                            <a href="../user/adduser.html">创建用户</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="empty.html"><i class="fa fa-fw fa-file"></i> Empty Page</a>
+                    <a href="#"><i class="fa fa-sitemap"></i>账户管理<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="../account/index.html">所有账户</a>
+                        </li>
+                        <li>
+                            <a href="../account/addaccount.html">创建账户</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
 
@@ -196,7 +148,7 @@
                                     <form role="form">
                                         <div class="form-group">
                                             <input type="text" class="form-control" placeholder="身份证" id="uid"><br>
-                                            <input type="password" class="form-control" placeholder="名字" id="uname"><br>
+                                            <input type="text" class="form-control" placeholder="名字" id="uname"><br>
                                             <input type="text" class="form-control" placeholder="手机号" id="uphone"><br>
                                             <a href="#" class="btn btn-success btn-sm" id="commit">提交</a>
 

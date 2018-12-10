@@ -38,7 +38,7 @@
             <ul class="nav" id="main-menu">
 
                 <li>
-                    <a class="active-menu" href="../index.html"><i class="fa fa-dashboard"></i>站点信息</a>
+                    <a class="active-menu" href="/index.html"><i class="fa fa-dashboard"></i>主页</a>
                 </li>
                 <li>
                     <a href="../deposit/index.html"><i class="fa fa-desktop"></i>存款</a>
@@ -52,44 +52,31 @@
                 <li>
                     <a href="../transfer/index.html"><i class="fa fa-qrcode"></i>转账</a>
                 </li>
-
-                <li>
-                    <a href="table.html"><i class="fa fa-table"></i>更改密码</a>
-                </li>
                 <li>
                     <a href="form.html"><i class="fa fa-edit"></i>职员信息</a>
                 </li>
 
-
                 <li>
-                    <a href="#"><i class="fa fa-sitemap"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                    <a href="#"><i class="fa fa-sitemap"></i>用户管理<span class="fa arrow"></span></a>
                     <ul class="nav nav-second-level">
                         <li>
-                            <a href="#">Second Level Link</a>
+                            <a href="../user/index.html">所有用户</a>
                         </li>
                         <li>
-                            <a href="#">Second Level Link</a>
-                        </li>
-                        <li>
-                            <a href="#">Second Level Link<span class="fa arrow"></span></a>
-                            <ul class="nav nav-third-level">
-                                <li>
-                                    <a href="#">Third Level Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level Link</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level Link</a>
-                                </li>
-
-                            </ul>
-
+                            <a href="../user/adduser.html">创建用户</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="empty.html"><i class="fa fa-fw fa-file"></i> Empty Page</a>
+                    <a href="#"><i class="fa fa-sitemap"></i>账户管理<span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level">
+                        <li>
+                            <a href="../account/index.html">所有账户</a>
+                        </li>
+                        <li>
+                            <a href="../account/addaccount.html">创建账户</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
 
@@ -120,7 +107,6 @@
                                         <div class="form-group">
                                             <input type="text" id="accountId" class="form-control" placeholder="账号"><br>
                                             <input type="text" id="withdrawalsvalue" class="form-control" placeholder="金额"><br>
-                                            <input type="text" id="siteId" class="form-control" placeholder="站点号"><br>
                                             <input type="text" id="staffId" class="form-control" placeholder="职员号"><br>
                                             <a href="#" id="submit" class="btn btn-success btn-sm">提交</a>
 
@@ -159,6 +145,7 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+        var siteid=localStorage.getItem("siteid");
         $("#getuser").on('click',function () {
             $.ajax({
                 url:"/accountsum/getall",    //请求的url地址
@@ -189,12 +176,11 @@
         $("#submit").on('click',function () {
             var accountId=$("#accountId").val();
             var withdrawalsvalue=$("#withdrawalsvalue").val();
-            var siteId=$("#siteId").val();
             var staffId=$("#staffId").val();
             var data={
                 "accountId":accountId,
                 "withdrawalsvalue":withdrawalsvalue,
-                "siteId":siteId,
+                "siteId":siteid,
                 "staffId":staffId
             };
             $.ajax({

@@ -1,10 +1,12 @@
 package com.bank.demo.controller;
 
 import com.bank.demo.RequestBean.DepositBean;
+import com.bank.demo.mainModel.Accountsum;
 import com.bank.demo.mainModel.Summary;
 import com.bank.demo.model.Account;
 import com.bank.demo.model.Deposit;
 import com.bank.demo.repository.AccountRepository;
+import com.bank.demo.repository.AccountsumRepository;
 import com.bank.demo.repository.DepositRepository;
 import com.bank.demo.repository.SummaryRepository;
 import net.bytebuddy.build.Plugin;
@@ -33,6 +35,9 @@ public class DepositController {
 
     @Autowired
     private SummaryRepository summaryRepository;
+
+    @Autowired
+    private AccountsumRepository accountsumRepository;
 
     @GetMapping(value = "/depositlist")
     public List<Deposit> depositList() throws ParseException {
@@ -87,6 +92,10 @@ public class DepositController {
         summary.setSummaryId(DataTest.makeSummaryid());
         summary.setDate(sqldate);
         summaryRepository.save(summary);
+
+        Accountsum accountsum= accountsumRepository.findByAccountId(account.getAcconutId());
+        accountsum.setAccountBalance(account.getAccountBalance());
+        accountsumRepository.save(accountsum);
 
 
         return true;

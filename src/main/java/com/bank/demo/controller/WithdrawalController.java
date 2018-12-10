@@ -2,11 +2,13 @@ package com.bank.demo.controller;
 
 import com.bank.demo.RequestBean.DepositBean;
 import com.bank.demo.RequestBean.WithdrawalBean;
+import com.bank.demo.mainModel.Accountsum;
 import com.bank.demo.mainModel.Summary;
 import com.bank.demo.model.Account;
 import com.bank.demo.model.Deposit;
 import com.bank.demo.model.Withdrawal;
 import com.bank.demo.repository.AccountRepository;
+import com.bank.demo.repository.AccountsumRepository;
 import com.bank.demo.repository.SummaryRepository;
 import com.bank.demo.repository.WithdrawalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class WithdrawalController {
 
     @Autowired
     private SummaryRepository summaryRepository;
+
+    @Autowired
+    private AccountsumRepository accountsumRepository;
 
     /***
      * 增加一个取款记录
@@ -68,6 +73,10 @@ public class WithdrawalController {
         summary.setValue(withdrawalBean.withdrawalsvalue);
         summary.setSummaryId(DataTest.makeSummaryid());
         summaryRepository.save(summary);
+
+        Accountsum accountsum= accountsumRepository.findByAccountId(account.getAcconutId());
+        accountsum.setAccountBalance(account.getAccountBalance());
+        accountsumRepository.save(accountsum);
         return true;
     }
 
