@@ -9,13 +9,12 @@ import com.bank.demo.repository.AccountRepository;
 import com.bank.demo.repository.AccountsumRepository;
 import com.bank.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.math.BigDecimal;
 import java.security.PublicKey;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/account")
@@ -51,6 +50,11 @@ public class AccountController {
         accountsum.setSiteId(account.getSiteId());
         accountsumRepository.save(accountsum);
         return true;
+    }
+
+    @GetMapping(value = "/getaccount/{siteid}")
+    public List<Account> getaccountbyid(@PathVariable Integer siteid){
+        return accountRepository.findBySiteId(siteid);
     }
 
     @PostMapping(value = "/islogin")

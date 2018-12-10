@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title></title>
+    <!-- Bootstrap Styles-->
+    <link href="./test/assets/css/bootstrap.css" rel="stylesheet" />
+    <!-- FontAwesome Styles-->
+    <link href="./test/assets/css/font-awesome.css" rel="stylesheet" />
+    <!-- Custom Styles-->
+    <link href="./test/assets/css/custom-styles.css" rel="stylesheet" />
+    <!-- Google Fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <script src="jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            console.log("1321653");
+            localStorage.setItem("siteid",10);
+            $("#one").on('click',function () {
+                console.log("1");
+                localStorage.setItem("siteid",0);
+            });
+            $("#two").on('click',function () {
+                localStorage.setItem("siteid",1);
+            });
+            $("#three").on('click',function () {
+                localStorage.setItem("siteid",2);
+            });
+            $("#commit").on('click',function () {
+                if(localStorage.getItem("siteid")>3)
+                    alert("选择总行或分行");
+                else
+                    window.location.href = "/index.html";
+
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="wrapper">
+    <nav class="navbar navbar-default top-navbar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                <span class="sr-only"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#"><i class="fa fa-gear"></i> <strong>银行管理系统</strong></a>
+        </div>
+    </nav>
+    <!--/. NAV TOP  -->
+    <nav class="navbar-default navbar-side" role="navigation">
+        <div class="sidebar-collapse">
+            <ul class="nav" id="main-menu">
+
+                <li>
+                    <a href="#"><i class="fa fa-dashboard"></i> </a>
+                </li>
+                <li>
+                    <a href="#" class="active-menu"><i class="fa fa-desktop"></i> </a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-bar-chart-o"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-qrcode"></i></a>
+                </li>
+
+                <li>
+                    <a href="#"><i class="fa fa-table"></i></a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-edit"></i> </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </nav>
+    <!-- /. NAV SIDE  -->
+    <div id="page-wrapper" >
+        <div id="page-inner">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="page-header">
+                        <small></small>
+                    </h1>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-7">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <h4></h4>
+
+                            <a href="#" class="btn btn-primary btn-lg" id="one">总行</a>
+                            <a href="#" class="btn btn-danger btn-lg" id="two">分行一</a>
+                            <a href="#" class="btn btn-success btn-lg" id="three">分行二</a>
+                            <a href="#" class="btn btn-info btn-lg" id="commit">进入</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- /. ROW  -->
+            <footer><p></p></footer>
+        </div>
+        <!-- /. PAGE INNER  -->
+    </div>
+    <!-- /. PAGE WRAPPER  -->
+</div>
+<!-- /. WRAPPER  -->
+<!-- JS Scripts-->
+<!-- jQuery Js -->
+<!-- Bootstrap Js -->
+<script src="./test/assets/js/bootstrap.min.js"></script>
+<!-- Metis Menu Js -->
+<script src="./test/assets/js/jquery.metisMenu.js"></script>
+<!-- Custom Js -->
+<script src="./test/assets/js/custom-scripts.js"></script>
+
+</body>
+</html>

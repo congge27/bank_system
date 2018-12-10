@@ -1,11 +1,13 @@
 package com.bank.demo.controller;
 
 import com.bank.demo.RequestBean.TransferBean;
+import com.bank.demo.mainModel.Accountsum;
 import com.bank.demo.mainModel.Summary;
 import com.bank.demo.model.Account;
 import com.bank.demo.model.Transfer;
 import com.bank.demo.model.Withdrawal;
 import com.bank.demo.repository.AccountRepository;
+import com.bank.demo.repository.AccountsumRepository;
 import com.bank.demo.repository.SummaryRepository;
 import com.bank.demo.repository.TransferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class TransferController {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private AccountsumRepository accountsumRepository;
 
     @PostMapping(value = "/addtransfer")
     public boolean addTransfer(@RequestBody TransferBean transferBean)
@@ -85,6 +90,13 @@ public class TransferController {
         summary.setAccountIdFrom(transferBean.accountIdFrom);
         summary.setType(3);
         summaryRepository.save(summary);
+
+        Accountsum accountsum1= accountsumRepository.findByAccountId(accountFrom.getAcconutId());
+        accountsum1.setAccountBalance(accountFrom.getAccountBalance());
+        Accountsum accountsum2= accountsumRepository.findByAccountId(accountTo.getAcconutId());
+        accountsum1.setAccountBalance(accountTo.getAccountBalance());
+        accountsumRepository.save(accountsum1);
+        accountsumRepository.save(accountsum2);
         return true;
     }
 

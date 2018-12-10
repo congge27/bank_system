@@ -16,6 +16,53 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
     <!-- TABLE STYLES-->
     <link href="../test/assets/js/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    <script src="../jquery-3.3.1.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log("1321653");
+            var siteid=localStorage.getItem("siteid");
+            console.log(siteid);
+            $.ajax({
+                url:"/account/getaccount/"+siteid,    //请求的url地址
+                dataType:"json",   //返回格式为json
+                async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                contentType:"application/json",
+                type:"GET",   //请求方式
+                //data:JSON.stringify(data),    //参数值
+                beforeSend:function(){
+                    //请求前的处理
+                },
+                success:function(data){
+                    if(data!=null)
+                    {
+                        DisplayListItems(data);
+                    }
+                    else
+                        alert("查询失败");
+                    //请求成功时处理
+                },
+                complete:function(){
+                    //请求完成的处理
+                },
+                error:function(){
+                    //请求出错处理
+                }
+            });
+            function DisplayListItems(list) {
+                $.each(list, function(index, element) {
+                    var itemHTML = [
+                        "<tr class=\"odd gradeX\">",
+                        "<td>",element.acconutId,"</td>",
+                        "<td class='center'>",element.userId,"</td>",
+                        "<td class=\"center\">",element.accountBalance,"</td>",
+                        "</tr>"].join('\n');
+                    $("#list1").append(itemHTML);
+                });
+            };
+        });
+
+    </script>
 </head>
 <body>
 <div id="wrapper">
@@ -116,31 +163,16 @@
                         </div>
                         <div class="panel-body">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                <table class="table table-striped table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Rendering engine</th>
-                                        <th>Browser</th>
-                                        <th>Platform(s)</th>
-                                        <th>Engine version</th>
-                                        <th>CSS grade</th>
+                                        <th>账户</th>
+                                        <th>用户</th>
+                                        <th>余额</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr class="odd gradeX">
-                                        <td>Trident</td>
-                                        <td>Internet Explorer 4.0</td>
-                                        <td>Win 95+</td>
-                                        <td class="center">4</td>
-                                        <td class="center">X</td>
-                                    </tr>
-                                    <tr class="gradeU">
-                                        <td>Other browsers</td>
-                                        <td>All others</td>
-                                        <td>-</td>
-                                        <td class="center">-</td>
-                                        <td class="center">U</td>
-                                    </tr>
+                                    <tbody id="list1">
+
                                     </tbody>
                                 </table>
                             </div>
@@ -158,10 +190,7 @@
     <!-- /. PAGE INNER  -->
 </div>
 <!-- /. PAGE WRAPPER  -->
-<!-- /. WRAPPER  -->
-<!-- JS Scripts-->
-<!-- jQuery Js -->
-<script src="../test/assets/js/jquery-1.10.2.js"></script>
+
 <!-- Bootstrap Js -->
 <script src="../test/assets/js/bootstrap.min.js"></script>
 <!-- Metis Menu Js -->
