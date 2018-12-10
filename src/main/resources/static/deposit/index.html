@@ -12,6 +12,10 @@
     <link href="../test/assets/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+
+    <!-- js-->
+
+
 </head>
 <body>
 <div id="wrapper">
@@ -43,7 +47,7 @@
                     <a href="../withdrawal/index.html"><i class="fa fa-bar-chart-o"></i>取款</a>
                 </li>
                 <li>
-                    <a href="../withdrawal/index.html"><i class="fa fa-bar-chart-o"></i>交易查询</a>
+                    <a href="../query/index.html"><i class="fa fa-bar-chart-o"></i>交易查询</a>
                 </li>
                 <li>
                     <a href="../transfer/index.html"><i class="fa fa-qrcode"></i>转账</a>
@@ -98,7 +102,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="page-header">
-                        存款业务</small>
+                        存款业务
                     </h1>
                 </div>
             </div>
@@ -114,13 +118,13 @@
                                 <div class="col-lg-6" align="center">
                                     <form role="form">
                                         <div class="form-group">
-                                            <input type="text" class="form-control" placeholder="用户名"><br>
-                                            <input type="password" class="form-control" placeholder="密码"><br>
-                                            <input type="text" class="form-control" placeholder="金额"><br>
-                                            <a href="#" class="btn btn-success btn-sm">提交</a>
+                                            <input type="text" id="accountId" class="form-control" placeholder="账号"><br>
+                                            <input type="text" id="depositsValue" class="form-control" placeholder="金额"><br>
+                                            <input type="text" id="siteId" class="form-control" placeholder="站点号"><br>
+                                            <input type="text" id="staffId" class="form-control" placeholder="职员号"><br>
+                                            <a href="#" id="submit" class="btn btn-success btn-sm">提交</a>
 
                                         </div>
-
 
                                     </form>
                                 </div>
@@ -134,6 +138,12 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            <div class="row">
+                <button id="getuser">获取所有账户</button>
+                <ul id="ul1">
+
+                </ul>
+            </div>
             <footer></footer>
         </div>
         <!-- /. PAGE INNER  -->
@@ -146,10 +156,83 @@
 <script src="../test/assets/js/jquery-1.10.2.js"></script>
 <!-- Bootstrap Js -->
 <script src="../test/assets/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#getuser").on('click',function () {
+            $.ajax({
+                url:"/accountsum/getall",    //请求的url地址
+                dataType:"json",   //返回格式为json
+                async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                //data:{"id":"value"},    //参数值
+                type:"GET",   //请求方式
+                beforeSend:function(){
+                    //请求前的处理
+                },
+                success:function(data){
+                    $("#ul1").empty();
+                    for(var i=0;i<data.length;i++)
+                    {
+                        $("#ul1").append("<li>"+data[i].accountId+"</li>");
+                    }
+                    //请求成功时处理
+                },
+                complete:function(){
+                    //请求完成的处理
+                },
+                error:function(){
+                    //请求出错处理
+                }
+            });
+        });
+
+        $("#submit").on('click',function () {
+            var accountId=$("#accountId").val();
+            var depositsValue=$("#depositsValue").val();
+            var siteId=$("#siteId").val();
+            var staffId=$("#staffId").val();
+            var data={
+                "accountId":accountId,
+                "depositsValue":depositsValue,
+                "siteId":siteId,
+                "staffId":staffId
+            };
+            $.ajax({
+                url:"/deposit/adddeposit",    //请求的url地址
+                dataType:"json",   //返回格式为json
+                async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                contentType:"application/json",
+                data:JSON.stringify(data),    //参数值
+                type:"POST",   //请求方式
+                beforeSend:function(){
+                    //请求前的处理
+                },
+                success:function(data){
+                    if(data){
+                        window.alert("存款成功");
+                    }else {
+                        window.alert("存款失败");
+                    }
+
+
+                    //请求成功时处理
+                },
+                complete:function(){
+                    //请求完成的处理
+                },
+                error:function(){
+                    //请求出错处理
+                }
+            });
+        });
+    });
+
+</script>
 <!-- Metis Menu Js -->
 <script src="../test/assets/js/jquery.metisMenu.js"></script>
 <!-- Custom Js -->
 <script src="../test/assets/js/custom-scripts.js"></script>
+
 
 
 </body>
