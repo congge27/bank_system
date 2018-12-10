@@ -12,10 +12,51 @@
     <link href="../test/assets/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <script src="../jquery-3.3.1.js"></script>
 
-    <!-- js-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log("1321653");
+            var siteid=localStorage.getItem("siteid");
+            $("#commit").on('click',function () {
+                var userId=$("#userId").val();
+                var password=$("#password").val();
 
+                var data={
+                    "userId":userId,
+                    "password":password,
+                    "siteId":siteid
+                };
+                $.ajax({
+                    url:"/account/addaccount",    //请求的url地址
+                    dataType:"json",   //返回格式为json
+                    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                    contentType:"application/json",
+                    type:"POST",   //请求方式
+                    data:JSON.stringify(data),    //参数值
+                    beforeSend:function(){
+                        //请求前的处理
+                    },
+                    success:function(data){
+                        if(data==true)
+                        {
+                            alert("成功创建账户");
+                        }
+                        else
+                            alert("创建失败，检查输入信息");
+                        //请求成功时处理
+                    },
+                    complete:function(){
+                        //请求完成的处理
+                    },
+                    error:function(){
+                        //请求出错处理
+                    }
+                });
+            });
+        });
 
+    </script>
 </head>
 <body>
 <div id="wrapper">
@@ -89,7 +130,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1 class="page-header">
-                        存款业务
+                        创建用户</small>
                     </h1>
                 </div>
             </div>
@@ -105,12 +146,11 @@
                                 <div class="col-lg-6" align="center">
                                     <form role="form">
                                         <div class="form-group">
-                                            <input type="text" id="accountId" class="form-control" placeholder="账号"><br>
-                                            <input type="text" id="depositsValue" class="form-control" placeholder="金额"><br>
-                                            <input type="text" id="staffId" class="form-control" placeholder="职员号"><br>
-                                            <a href="#" id="submit" class="btn btn-success btn-sm">提交</a>
-
+                                            <input type="text" class="form-control" placeholder="身份证号" id="userId"><br>
+                                            <input type="password" class="form-control" placeholder="密码" id="password"><br>
+                                            <a href="#" class="btn btn-success btn-sm" id="commit">提交</a>
                                         </div>
+
 
                                     </form>
                                 </div>
@@ -124,12 +164,6 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
-            <div class="row">
-                <button id="getuser">获取所有账户</button>
-                <ul id="ul1">
-
-                </ul>
-            </div>
             <footer></footer>
         </div>
         <!-- /. PAGE INNER  -->
@@ -139,86 +173,13 @@
 <!-- /. WRAPPER  -->
 <!-- JS Scripts-->
 <!-- jQuery Js -->
-<script src="../test/assets/js/jquery-1.10.2.js"></script>
 <!-- Bootstrap Js -->
 <script src="../test/assets/js/bootstrap.min.js"></script>
-
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#getuser").on('click',function () {
-            $.ajax({
-                url:"/accountsum/getall",    //请求的url地址
-                dataType:"json",   //返回格式为json
-                async:true,//请求是否异步，默认为异步，这也是ajax重要特性
-                //data:{"id":"value"},    //参数值
-                type:"GET",   //请求方式
-                beforeSend:function(){
-                    //请求前的处理
-                },
-                success:function(data){
-                    $("#ul1").empty();
-                    for(var i=0;i<data.length;i++)
-                    {
-                        $("#ul1").append("<li>"+data[i].accountId+"</li>");
-                    }
-                    //请求成功时处理
-                },
-                complete:function(){
-                    //请求完成的处理
-                },
-                error:function(){
-                    //请求出错处理
-                }
-            });
-        });
-
-        $("#submit").on('click',function () {
-            var accountId=$("#accountId").val();
-            var depositsValue=$("#depositsValue").val();
-            var siteid=localStorage.getItem("siteid");
-
-            var staffId=$("#staffId").val();
-            var data={
-                "accountId":accountId,
-                "depositsValue":depositsValue,
-                "siteId":siteid,
-                "staffId":staffId
-            };
-            $.ajax({
-                url:"/deposit/adddeposit",    //请求的url地址
-                dataType:"json",   //返回格式为json
-                async:true,//请求是否异步，默认为异步，这也是ajax重要特性
-                contentType:"application/json",
-                data:JSON.stringify(data),    //参数值
-                type:"POST",   //请求方式
-                beforeSend:function(){
-                    //请求前的处理
-                },
-                success:function(data){
-                    if(data){
-                        window.alert("存款成功");
-                    }else {
-                        window.alert("存款失败");
-                    }
-
-
-                    //请求成功时处理
-                },
-                complete:function(){
-                    //请求完成的处理
-                },
-                error:function(){
-                    //请求出错处理
-                }
-            });
-        });
-    });
-
-</script>
 <!-- Metis Menu Js -->
 <script src="../test/assets/js/jquery.metisMenu.js"></script>
 <!-- Custom Js -->
 <script src="../test/assets/js/custom-scripts.js"></script>
+
 
 
 

@@ -29,8 +29,11 @@ public class AccountController {
     @Autowired
     private AccountsumRepository accountsumRepository;
 
-    @PostMapping(value = "/addAccount")
+    @PostMapping(value = "/addaccount")
     public boolean addAccount(@RequestBody AccountBean accountBean) {
+        System.out.println(accountBean.userId);
+        System.out.println("1534561");
+
         if(accountBean==null)
             return false;
         User user=userRepository.findByUId(accountBean.userId);
