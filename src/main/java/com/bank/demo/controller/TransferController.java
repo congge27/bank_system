@@ -1,5 +1,6 @@
 package com.bank.demo.controller;
 
+import com.bank.demo.RequestBean.LoginBean;
 import com.bank.demo.RequestBean.TransferBean;
 import com.bank.demo.mainModel.Accountsum;
 import com.bank.demo.mainModel.Summary;
@@ -44,6 +45,12 @@ public class TransferController {
         if(accountFrom.getAccountBalance().compareTo(transferBean.transferValue)<0){
             return false;
         }
+        /*LoginBean loginBean=new LoginBean();
+        loginBean.accountId=transferBean.accountIdFrom;
+        loginBean.password=transferBean.password;
+        loginBean.siteId=transferBean.siteId;
+        if(!new AccountController().isLogin(loginBean))
+            return false;*/
         accountFrom.setAccountBalance(accountFrom.getAccountBalance().subtract(transferBean.transferValue));
         accountTo.setAccountBalance(accountTo.getAccountBalance().add(transferBean.transferValue));
         accountRepository.save(accountFrom);

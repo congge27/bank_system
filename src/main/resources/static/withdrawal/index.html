@@ -44,6 +44,7 @@
                                         <div class="form-group">
                                             <input type="text" id="accountId" class="form-control" placeholder="账号"><br>
                                             <input type="text" id="withdrawalsvalue" class="form-control" placeholder="金额"><br>
+                                            <input type="password" id="password" class="form-control" placeholder="密码"><br>
                                             <a href="#" id="submit" class="btn btn-success btn-sm">提交</a>
 
                                         </div>
@@ -84,6 +85,7 @@
         var siteid=localStorage.getItem("siteid");
         var staffId=localStorage.getItem("staffid");
         $("#getuser").on('click',function () {
+
             $.ajax({
                 url:"/accountsum/getall",    //请求的url地址
                 dataType:"json",   //返回格式为json
@@ -113,27 +115,60 @@
         $("#submit").on('click',function () {
             var accountId=$("#accountId").val();
             var withdrawalsvalue=$("#withdrawalsvalue").val();
+            var password=$("#password").val();
             var data={
                 "accountId":accountId,
                 "withdrawalsvalue":withdrawalsvalue,
                 "siteId":siteid,
-                "staffId":staffId
+                "staffId":staffId,
+                "password":password
+            };
+            var logindata={
+                "accountId":accountId,
+                "password":password,
+                "siteId":siteid
             };
             $.ajax({
-                url:"/withdrawal/addwithdrawal",    //请求的url地址
+                url:"/account/islogin",    //请求的url地址
                 dataType:"json",   //返回格式为json
                 async:true,//请求是否异步，默认为异步，这也是ajax重要特性
                 contentType:"application/json",
-                data:JSON.stringify(data),    //参数值
+                data:JSON.stringify(logindata),    //参数值
                 type:"POST",   //请求方式
                 beforeSend:function(){
                     //请求前的处理
                 },
-                success:function(data){
-                    if(data){
-                        window.alert("取款成功");
+                success:function(res){
+                    if(res){
+                        $.ajax({
+                            url:"/withdrawal/addwithdrawal",    //请求的url地址
+                            dataType:"json",   //返回格式为json
+                            async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                            contentType:"application/json",
+                            data:JSON.stringify(data),    //参数值
+                            type:"POST",   //请求方式
+                            beforeSend:function(){
+                                //请求前的处理
+                            },
+                            success:function(res2){
+                                if(res2){
+                                    window.alert("取款成功");
+                                }else {
+                                    window.alert("取款失败");
+                                }
+
+
+                                //请求成功时处理
+                            },
+                            complete:function(){
+                                //请求完成的处理
+                            },
+                            error:function(){
+                                //请求出错处理
+                            }
+                        });
                     }else {
-                        window.alert("取款失败");
+                        window.alert("密码错误");
                     }
 
 
@@ -146,6 +181,8 @@
                     //请求出错处理
                 }
             });
+
+
         });
     });
 

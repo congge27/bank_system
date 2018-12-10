@@ -16,7 +16,7 @@ public class UserController {
 
     @PostMapping(value = "/adduser")
     public boolean addUser(@RequestBody UserBean userBean){
-        if(userBean.uId==null||userBean==null)
+        if(userBean.uId==null||userBean==null||userBean.uId.length()!=18)
             return false;
         if(userBean.uId.length()>18||userBean.uName.length()>20||userBean.uPhone.length()>11)
             return false;

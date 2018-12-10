@@ -64,7 +64,8 @@ public class AccountController {
     public boolean isLogin(@RequestBody LoginBean loginBean){
         if(loginBean.accountId==null||loginBean.password==null)
             return false;
-        Account account=accountRepository.findByAcconutId(loginBean.accountId);
+        String id=loginBean.accountId;
+        Account account=accountRepository.findByAcconutId(id);
         String pwd=DataTest.getMD5(loginBean.password);
         if(pwd.equals(account.getPassword()))
         {

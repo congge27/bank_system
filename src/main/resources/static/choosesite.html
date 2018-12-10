@@ -51,10 +51,10 @@
                             if(data!=null)
                             {
                                 DisplayListItems(data);
-                                $("p.tra").on('click',function () {
+                                $("a.tra").on('click',function () {
                                     var s=$(this).html();
                                     console.log(s);
-                                    localStorage.setItem("staffid",s);
+                                    localStorage.setItem("staffid",s.slice(1,-1));
                                     window.location.href="/index.html";
                                 })
                             }
@@ -67,7 +67,7 @@
                         $.each(list, function(index, element) {
                             var itemHTML = [
                                 "<tr class=\"odd gradeX\">",
-                                "<td class='center'>","<p class='tra' id='staffid"+index+"'>",element.staffId,"</p>","</td>",
+                                "<td class='center'>","<a class='tra' id='staffid"+index+"'>",element.staffId,"</a>","</td>",
                                 "<td class=\"center\">",element.staffName,"</td>",
                                 "</tr>"].join('\n');
                             $("#ul1").append(itemHTML);

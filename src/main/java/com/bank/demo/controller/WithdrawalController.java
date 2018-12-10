@@ -1,6 +1,7 @@
 package com.bank.demo.controller;
 
 import com.bank.demo.RequestBean.DepositBean;
+import com.bank.demo.RequestBean.LoginBean;
 import com.bank.demo.RequestBean.WithdrawalBean;
 import com.bank.demo.mainModel.Accountsum;
 import com.bank.demo.mainModel.Summary;
@@ -39,8 +40,12 @@ public class WithdrawalController {
     @PostMapping(value = "/addwithdrawal")
     public boolean addWithdrawal(@RequestBody WithdrawalBean withdrawalBean)
     {
-        if(withdrawalBean==null)
+        if(withdrawalBean==null||withdrawalBean.accountId=="")
             return false;
+        /*LoginBean loginBean=new LoginBean();
+        loginBean.accountId=withdrawalBean.accountId;
+        loginBean.password=withdrawalBean.password;
+        loginBean.siteId=withdrawalBean.siteId;*/
         java.util.Date datenow=new java.util.Date();
         java.sql.Date  sqldate=new java.sql.Date(datenow.getTime());
         Account account= accountRepository.findByAcconutId(withdrawalBean.accountId);

@@ -14,4 +14,6 @@ public class TransferBean {
     public Integer siteId;
 
     public String staffId;
+
+    public String password;
 }

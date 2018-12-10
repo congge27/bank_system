@@ -45,6 +45,8 @@
                                             <input type="text" id="accountIdFrom" class="form-control" placeholder="转出方账号"><br>
                                             <input type="text" id="accountIdTo" class="form-control" placeholder="转入方账号"><br>
                                             <input type="text" id="transferValue" class="form-control" placeholder="转账金额"><br>
+                                            <input type="password" id="password" class="form-control" placeholder="密码"><br>
+
                                             <a href="#" id="submit" class="btn btn-success btn-sm">提交</a>
 
                                         </div>
@@ -115,40 +117,65 @@
             var accountIdFrom=$("#accountIdFrom").val();
             var accountIdTo=$("#accountIdTo").val();
             var transferValue=$("#transferValue").val();
+            var password=$("#password").val();
             var data={
                 "accountIdFrom":accountIdFrom,
                 "accountIdTo":accountIdTo,
                 "transferValue":transferValue,
                 "siteId":siteid,
-                "staffId":staffId
+                "staffId":staffId,
+                "password":password
+            };
+            var logindata={
+                "accountId":accountIdFrom,
+                "password":password,
+                "siteId":siteid
             };
             $.ajax({
-                url:"/transfer/addtransfer",    //请求的url地址
+                url:"/account/islogin",    //请求的url地址
                 dataType:"json",   //返回格式为json
                 async:true,//请求是否异步，默认为异步，这也是ajax重要特性
                 contentType:"application/json",
-                data:JSON.stringify(data),    //参数值
+                data:JSON.stringify(logindata),    //参数值
                 type:"POST",   //请求方式
                 beforeSend:function(){
                     //请求前的处理
                 },
-                success:function(data){
-                    if(data){
-                        window.alert("转账成功");
+                success:function(res){
+                    if(res){
+                        $.ajax({
+                            url:"/transfer/addtransfer",    //请求的url地址
+                            dataType:"json",   //返回格式为json
+                            async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                            contentType:"application/json",
+                            data:JSON.stringify(data),    //参数值
+                            type:"POST",   //请求方式
+                            beforeSend:function(){
+                                //请求前的处理
+                            },
+                            success:function(res2){
+                                if(res2){
+                                    window.alert("转账成功");
+                                }else {
+                                    window.alert("转账失败");
+                                }
+
+
+                                //请求成功时处理
+                            },
+                            complete:function(){
+                                //请求完成的处理
+                            },
+                            error:function(){
+                                //请求出错处理
+                            }
+                        });
                     }else {
-                        window.alert("转账失败");
+                        window.alert("密码错误");
                     }
-
-
-                    //请求成功时处理
-                },
-                complete:function(){
-                    //请求完成的处理
-                },
-                error:function(){
-                    //请求出错处理
                 }
             });
+
         });
     });
 
