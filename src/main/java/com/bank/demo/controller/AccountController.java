@@ -54,9 +54,16 @@ public class AccountController {
         accountsumRepository.save(accountsum);
         return true;
     }
+    @GetMapping(value ="/getAllAccount" )
+    public List<Account> getAllAccount(){
+        return accountRepository.findAll();
+    }
 
     @GetMapping(value = "/getaccount/{siteid}")
     public List<Account> getaccountbyid(@PathVariable Integer siteid){
+        if(siteid==0){
+            return getAllAccount();
+        }
         return accountRepository.findBySiteId(siteid);
     }
 
