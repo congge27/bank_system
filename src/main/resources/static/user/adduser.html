@@ -12,6 +12,87 @@
     <link href="../test/assets/css/custom-styles.css" rel="stylesheet" />
     <!-- Google Fonts-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <script src="../jquery-3.3.1.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            console.log("1321653");
+            $("#commit").on('click',function () {
+                var uId=$("#uid").val();
+                var uName=$("#uname").val();
+                var uPhone=$("#uphone").val();
+
+                var data={
+                    "uId":uId,
+                    "uName":uName,
+                    "uPhone":uPhone
+                };
+                $.ajax({
+                    url:"/user/adduser",    //请求的url地址
+                    dataType:"json",   //返回格式为json
+                    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                    contentType:"application/json",
+                    type:"POST",   //请求方式
+                    data:JSON.stringify(data),    //参数值
+                    beforeSend:function(){
+                        //请求前的处理
+                    },
+                    success:function(data){
+                        if(data==true)
+                        {
+                            alert("成功创建用户");
+                        }
+                        else
+                            alert("创建失败，检查输入信息");
+                        //请求成功时处理
+                    },
+                    complete:function(){
+                        //请求完成的处理
+                    },
+                    error:function(){
+                        //请求出错处理
+                    }
+                });
+            });
+
+            $("#button2").on('click',function () {
+                var accountId=$("#accountId").val();
+                var depositsValue=$("#depositsValue").val();
+                var siteId=$("#siteId").val();
+                var staffId=$("#staffId").val();
+                var x=2018444112869165751;
+                var data={
+                    "accountId":accountId,
+                    "depositsValue":depositsValue,
+                    "siteId":siteId,
+                    "staffId":staffId
+                };
+                $.ajax({
+                    url:"/deposit/adddeposit",    //请求的url地址
+                    dataType:"json",   //返回格式为json
+                    async:true,//请求是否异步，默认为异步，这也是ajax重要特性
+                    contentType:"application/json",
+                    data:JSON.stringify(data),    //参数值
+                    type:"POST",   //请求方式
+                    beforeSend:function(){
+                        //请求前的处理
+                    },
+                    success:function(data){
+                        window.location.href = "http://www.baidu.com";
+
+                        //请求成功时处理
+                    },
+                    complete:function(){
+                        //请求完成的处理
+                    },
+                    error:function(){
+                        //请求出错处理
+                    }
+                });
+            });
+        });
+
+    </script>
 </head>
 <body>
 <div id="wrapper">
@@ -114,10 +195,10 @@
                                 <div class="col-lg-6" align="center">
                                     <form role="form">
                                         <div class="form-group">
-                                            身份证:<input type="text" class="form-control" placeholder="身份证"><br>
-                                            姓&nbsp;名:<input type="password" class="form-control" placeholder="名字"><br>
-                                            手机号:<input type="text" class="form-control" placeholder="手机号"><br>
-                                            <a href="#" class="btn btn-success btn-sm">提交</a>
+                                            <input type="text" class="form-control" placeholder="身份证" id="uid"><br>
+                                            <input type="password" class="form-control" placeholder="名字" id="uname"><br>
+                                            <input type="text" class="form-control" placeholder="手机号" id="uphone"><br>
+                                            <a href="#" class="btn btn-success btn-sm" id="commit">提交</a>
 
                                         </div>
 
@@ -143,13 +224,14 @@
 <!-- /. WRAPPER  -->
 <!-- JS Scripts-->
 <!-- jQuery Js -->
-<script src="../test/assets/js/jquery-1.10.2.js"></script>
 <!-- Bootstrap Js -->
 <script src="../test/assets/js/bootstrap.min.js"></script>
 <!-- Metis Menu Js -->
 <script src="../test/assets/js/jquery.metisMenu.js"></script>
 <!-- Custom Js -->
 <script src="../test/assets/js/custom-scripts.js"></script>
+
+
 
 
 </body>
